@@ -29,9 +29,11 @@ app.use(
 app.use(express.json())
 app.use('/user',userRouter);
 app.get('/',(req,res)=>{
-    res.send("hallo user")
+  res.status(200).json({ message: 'Welcome to my API' })
 })
 
 app.listen(5000,(req,res)=>{
     console.log("app run")
 })
+
+export default app;
