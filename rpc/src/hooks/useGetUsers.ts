@@ -1,4 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
+import { baseUrl } from "../utils/constant";
 
 type query = {
   search?: string;
@@ -11,10 +12,8 @@ export async function getUsers({ search, limit, page }: query) {
     const queryL = limit ? `&limit=${limit}` : "";
     const queryP = page ? `&page=${page}` : "";
 
-    const url = `http://localhost:5000/user?search=${
-      search || ""
-    }${queryL}${queryP}`;
-
+    const url = `${baseUrl}/user?search=${search || ""}${queryL}${queryP}`;
+    console.log(url);
     const res = await fetch(url);
     const data = await res.json();
     return data;
@@ -24,10 +23,8 @@ export async function getUsers({ search, limit, page }: query) {
 }
 
 export const useGetUsers = ({ search, limit, page }: query) => {
-  const users = useQuery({
+  return useQuery({
     queryKey: ["users"],
     queryFn: () => getUsers({ search, limit, page }),
   });
-
-  return users;
 };

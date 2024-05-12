@@ -13,7 +13,7 @@ userRouter.get("/", async (req, res, next) => {
     const search = req.query.search || "";
     const users = await User.find({
       first_name: { $regex: search, $options: "i" },
-      last_name: { $regex: search, $options: "i" },
+      
     })
       .skip(page * limit)
       .limit(limit);
